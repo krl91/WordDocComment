@@ -33,7 +33,7 @@ Use **a single call** to `vscode_askQuestions` to ask for the three pieces of in
 [
   {
     "header": "earlier_versions",
-    "question": "Do you have even older versions (e.g. Doc0.docx) whose comments also need to be recovered?",
+    "question": "Do you have even older versions (e.g. tests/fixtures/Doc0.docx) whose comments also need to be recovered?",
     "options": [
       { "label": "No — single source document", "recommended": true },
       { "label": "Yes — I have one or more earlier versions" }
@@ -41,11 +41,11 @@ Use **a single call** to `vscode_askQuestions` to ask for the three pieces of in
   },
   {
     "header": "source",
-    "question": "SOURCE document (most recent source version): path to the file containing the comments to transfer (e.g. Doc1.docx)?"
+    "question": "SOURCE document (most recent source version): path to the file containing the comments to transfer (e.g. tests/fixtures/Doc1.docx)?"
   },
   {
     "header": "content",
-    "question": "CONTENT document: path to the file whose text will be preserved (e.g. Doc2.docx)?"
+    "question": "CONTENT document: path to the file whose text will be preserved (e.g. tests/fixtures/Doc2.docx)?"
   },
   {
     "header": "output",

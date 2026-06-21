@@ -33,7 +33,7 @@ Utiliser **un seul appel** à `vscode_askQuestions` pour demander les trois info
 [
   {
     "header": "versions_anterieures",
-    "question": "Avez-vous des versions encore plus anciennes (ex : Doc0.docx) dont il faut aussi récupérer les commentaires ?",
+    "question": "Avez-vous des versions encore plus anciennes (ex : tests/fixtures/Doc0.docx) dont il faut aussi récupérer les commentaires ?",
     "options": [
       { "label": "Non — un seul document source", "recommended": true },
       { "label": "Oui — j'ai une ou plusieurs versions antérieures" }
@@ -41,11 +41,11 @@ Utiliser **un seul appel** à `vscode_askQuestions` pour demander les trois info
   },
   {
     "header": "source",
-    "question": "Document SOURCE (version la plus récente des sources) : chemin du fichier contenant les commentaires à transférer (ex : Doc1.docx) ?"
+    "question": "Document SOURCE (version la plus récente des sources) : chemin du fichier contenant les commentaires à transférer (ex : tests/fixtures/Doc1.docx) ?"
   },
   {
     "header": "contenu",
-    "question": "Document CONTENU : chemin du fichier dont le texte sera conservé (ex : Doc2.docx) ?"
+    "question": "Document CONTENU : chemin du fichier dont le texte sera conservé (ex : tests/fixtures/Doc2.docx) ?"
   },
   {
     "header": "sortie",

@@ -25,21 +25,21 @@ les commentaires d'un ou plusieurs fichiers `.docx` dans un fichier CSV (sépara
 ### Export d'un seul fichier
 
 ```bash
-python3 export_comments.py Doc1.docx
+python3 export_comments.py tests/fixtures/Doc1.docx
 # → produit : Doc1_comments.csv
 ```
 
 ### Export multi-fichiers (comparaison de versions)
 
 ```bash
-python3 export_comments.py Doc1.docx Doc2.docx --output comparaison.csv
-python3 export_comments.py Doc0.docx Doc1.docx Doc2.docx --output comparaison.csv
+python3 export_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx --output comparaison.csv
+python3 export_comments.py tests/fixtures/Doc0.docx tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx --output comparaison.csv
 ```
 
 ### Nom de sortie personnalisé
 
 ```bash
-python3 export_comments.py Doc1.docx --output rapport_revisions.csv
+python3 export_comments.py tests/fixtures/Doc1.docx --output rapport_revisions.csv
 ```
 
 ---

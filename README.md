@@ -48,14 +48,14 @@ usage: transfer_comments [-h] [--threshold FLOAT] source content [output]
 ### Exemples
 
 ```bash
-# Utilisation standard (noms par défaut)
-python transfer_comments.py Doc1.docx Doc2.docx
+# Utilisation standard avec les documents de test
+python transfer_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx
 
 # Avec un nom de sortie personnalisé
-python transfer_comments.py Doc1.docx Doc2.docx resultat.docx
+python transfer_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx resultat.docx
 
 # Avec un seuil de similarité plus strict
-python transfer_comments.py Doc1.docx Doc2.docx --threshold 0.85
+python transfer_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx --threshold 0.85
 ```
 
 ## Logique de traitement
@@ -121,10 +121,10 @@ Si les commentaires à récupérer se trouvent dans **deux versions source** (pa
 
 ```bash
 # Étape 1 : fusionner Doc0 dans Doc1 → fichier intermédiaire
-python3 transfer_comments.py Doc0.docx Doc1.docx Doc1_merged.docx
+python3 transfer_comments.py tests/fixtures/Doc0.docx tests/fixtures/Doc1.docx Doc1_merged.docx
 
 # Étape 2 : transférer tous les commentaires vers Doc2
-python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx
+python3 transfer_comments.py Doc1_merged.docx tests/fixtures/Doc2.docx Doc_Final.docx
 ```
 
 **Résultat de `Doc_Final.docx` :**
@@ -139,7 +139,7 @@ python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx
 > une intervention manuelle. Pour limiter ces questions, ajouter `--threshold 0.85` :
 >
 > ```bash
-> python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx --threshold 0.85
+> python3 transfer_comments.py Doc1_merged.docx tests/fixtures/Doc2.docx Doc_Final.docx --threshold 0.85
 > ```
 
 Ce principe se généralise à N versions : `Doc0 → Doc1_merged → … → Doc_Final`.
@@ -152,10 +152,10 @@ Le script `export_comments.py` extrait les commentaires d'un ou plusieurs `.docx
 
 ```bash
 # Un seul fichier → Doc1_comments.csv
-python3 export_comments.py Doc1.docx
+python3 export_comments.py tests/fixtures/Doc1.docx
 
 # Plusieurs fichiers (comparaison multi-versions)
-python3 export_comments.py Doc1.docx Doc2.docx Doc_Final.docx --output comparaison.csv
+python3 export_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx Doc_Final.docx --output comparaison.csv
 ```
 
 ### Colonnes exportées
@@ -266,9 +266,12 @@ WordDocComment/
 ├── transfer_comments.py          # Script de fusion des commentaires
 ├── export_comments.py            # Script d'export CSV
 ├── .pylintrc                     # Configuration pylint (score : 9.88/10)
-├── Doc1.docx                     # Document source (commentaires)
-├── Doc2.docx                     # Document contenu
 ├── Doc_Final.docx                # Document généré (créé par le script)
+├── tests/
+│   └── fixtures/
+│       ├── Doc0.docx             # Version ancienne de test
+│       ├── Doc1.docx             # Document source de test (commentaires)
+│       └── Doc2.docx             # Document contenu de test
 └── .github/
     ├── agents/
     │   ├── word-comment-merge.agent.md      # Agent Copilot (français)

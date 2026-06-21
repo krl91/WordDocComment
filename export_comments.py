@@ -7,9 +7,9 @@ that an agent (or a spreadsheet) can compare versions side-by-side.
 
 Usage
 -----
-    python export_comments.py Doc1.docx
-    python export_comments.py Doc1.docx Doc2.docx --output comparison.csv
-    python export_comments.py Doc1.docx Doc2.docx Doc3.docx
+    python export_comments.py tests/fixtures/Doc1.docx
+    python export_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx --output comparison.csv
+    python export_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx Doc3.docx
     python export_comments.py --help
 """
 
@@ -134,9 +134,9 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
             "Exemples :\n"
-            "  python export_comments.py Doc1.docx\n"
-            "  python export_comments.py Doc1.docx Doc2.docx --output comparaison.csv\n"
-            "  python export_comments.py Doc1.docx Doc2.docx Doc3.docx\n"
+            "  python export_comments.py tests/fixtures/Doc1.docx\n"
+            "  python export_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx --output comparaison.csv\n"
+            "  python export_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx Doc3.docx\n"
         ),
     )
     parser.add_argument(

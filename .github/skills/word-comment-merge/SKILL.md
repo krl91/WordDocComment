@@ -79,10 +79,10 @@ chaîner le script deux fois — aucun changement de code nécessaire :
 
 ```bash
 # Passe 1 : Doc0 → Doc1 (texte Doc1 + commentaires Doc0+Doc1)
-python3 transfer_comments.py Doc0.docx Doc1.docx Doc1_merged.docx
+python3 transfer_comments.py tests/fixtures/Doc0.docx tests/fixtures/Doc1.docx Doc1_merged.docx
 
 # Passe 2 : Doc1_merged → Doc2 (texte Doc2 + tous les commentaires)
-python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx
+python3 transfer_comments.py Doc1_merged.docx tests/fixtures/Doc2.docx Doc_Final.docx
 ```
 
 **Ce que contient `Doc_Final.docx` :**
@@ -107,10 +107,10 @@ Pour N versions antérieures, répéter l'enchaînement :
 
 ```bash
 # Fichier unique → <nom>_comments.csv
-python3 export_comments.py Doc1.docx
+python3 export_comments.py tests/fixtures/Doc1.docx
 
 # Plusieurs fichiers → comments_export.csv (ou nom personnalisé)
-python3 export_comments.py Doc1.docx Doc2.docx Doc_Final.docx --output comparaison.csv
+python3 export_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx Doc_Final.docx --output comparaison.csv
 ```
 
 ### Colonnes du CSV (séparateur `;`)

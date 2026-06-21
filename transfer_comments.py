@@ -1049,7 +1049,7 @@ def parse_args() -> argparse.Namespace:
         prog="transfer_comments",
         description="Transfert de commentaires entre deux documents Word (.docx).",
         epilog=(
-            "Exemple : python transfer_comments.py Doc1.docx Doc2.docx Doc_Final.docx"
+            "Exemple : python transfer_comments.py tests/fixtures/Doc1.docx tests/fixtures/Doc2.docx Doc_Final.docx"
         ),
     )
     parser.add_argument(
