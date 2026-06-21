@@ -1,6 +1,6 @@
 ---
 name: word-comment-export
-description: "Export Word document comments to CSV. Use when: exporting Word comments to a CSV file, extracting annotations from a .docx file, comparing comments between 2 or 3 versions of a Word document, building a comment comparison table, listing all comments with author date chapter anchor text, opening Word comments in Excel or a spreadsheet."
+description: "Export des commentaires Word vers CSV. Use when: exporting Word comments to a CSV file, extracting annotations from a .docx file, comparing comments between 2 or 3 versions of a Word document, building a comment comparison table, listing all comments with author date chapter anchor text, opening Word comments in Excel or a spreadsheet."
 argument-hint: "Fichier(s) .docx à exporter, et nom du CSV de sortie"
 ---
 

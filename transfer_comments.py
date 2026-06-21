@@ -693,19 +693,24 @@ def build_combined_comments_xml(raw_cmts_xml, doc2_only: list) -> bytes:
 
 
 def build_combined_ext_xml(raw_ext_xml, doc2_only: list, doc2_raw_ext) -> bytes | None:
-    """Return merged commentsExtended.xml bytes, or *raw_ext_xml* unchanged."""
+    """Return merged commentsExtended.xml bytes, or *raw_ext_xml* unchanged.
+
+    Every Doc2-only comment needs its own <w15:commentEx> entry carried over,
+    not just resolved ones: that entry is also where the reply parent/child
+    link (w15:paraIdParent) lives, so filtering by resolved status alone
+    silently drops thread relationships for unresolved replies.
+    """
     if not doc2_only or not doc2_raw_ext:
         return raw_ext_xml
 
-    resolved_para_ids = set()
+    doc2_only_para_ids = set()
     for cmt in doc2_only:
-        if cmt["resolved"]:
-            for para in cmt["elem"].iter(T_P):
-                pid = para.get(A_PARA_ID, "")
-                if pid:
-                    resolved_para_ids.add(pid)
+        for para in cmt["elem"].iter(T_P):
+            pid = para.get(A_PARA_ID, "")
+            if pid:
+                doc2_only_para_ids.add(pid)
 
-    if not resolved_para_ids:
+    if not doc2_only_para_ids:
         return raw_ext_xml
 
     ext_base = (
@@ -714,7 +719,7 @@ def build_combined_ext_xml(raw_ext_xml, doc2_only: list, doc2_raw_ext) -> bytes 
         else etree.Element(T_CMTS_EX, nsmap={"w15": W15_NS, "w14": W14_NS})
     )
     for ext_entry in etree.fromstring(doc2_raw_ext).iter(T_CMT_EX):
-        if ext_entry.get(A_EX_PARA_ID, "") in resolved_para_ids:
+        if ext_entry.get(A_EX_PARA_ID, "") in doc2_only_para_ids:
             ext_base.append(deepcopy(ext_entry))
     return etree.tostring(
         ext_base, xml_declaration=True, encoding="UTF-8", standalone=True

@@ -243,6 +243,12 @@ Il peut aussi être invoqué manuellement dans le chat avec `/word-comment-merge
 /word-comment-merge ooxml   → détails techniques du format OOXML
 ```
 
+Une version anglaise équivalente, `word-comment-merge-en`, est chargée par l'agent
+**Word Comment Merge** et s'invoque avec `/word-comment-merge-en`.
+
+Le skill `word-comment-export` documente uniquement `export_comments.py` (export CSV
+d'un ou plusieurs `.docx`, colonnes, encodage). Il s'invoque avec `/word-comment-export`.
+
 Le skill `word-doc-quality` sert de référence à l'agent **Qualite document Word**.
 Il décrit les contrôles de lisibilité, d'homogénéité des tableaux et d'encadrés,
 avec une règle stricte : corriger seulement les écarts locaux qui ne nécessitent
@@ -280,9 +286,15 @@ WordDocComment/
     │   └── word-doc-review.agent.md         # Agent Copilot relecture Word
     └── skills/
         ├── word-comment-merge/
-        │   ├── SKILL.md                     # Skill Copilot (référence)
+        │   ├── SKILL.md                     # Skill Copilot (référence, français)
         │   └── references/
         │       └── ooxml.md                 # Détails format OOXML
+        ├── word-comment-merge-en/
+        │   ├── SKILL.md                     # Skill Copilot (référence, anglais)
+        │   └── references/
+        │       └── ooxml.md                 # OOXML details (anglais)
+        ├── word-comment-export/
+        │   └── SKILL.md                     # Skill export CSV (export_comments.py)
         ├── word-doc-quality/
         │   └── SKILL.md                     # Skill contrôle qualité Word
         └── word-doc-review/
