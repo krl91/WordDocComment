@@ -32,3 +32,6 @@ __MACOSX/
 
 # VS Code (facultatif — décommenter pour ne pas versionner les settings locaux)
 # .vscode/
+
+# Fichiers intermédiaires de chaînage
+*_merged.docx

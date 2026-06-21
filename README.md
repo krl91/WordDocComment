@@ -133,6 +133,15 @@ python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx
 - Commentaires propres à Doc1 (réancrés passe 2)
 - Commentaires propres à Doc2 conservés
 
+
+> **Conseil issu des tests** : quand le texte de Doc2 diffère légèrement de Doc1 (typos, reformulations),
+> les commentaires de Doc0 peuvent obtenir une confiance de 88 % lors de la passe 2 et déclencher
+> une intervention manuelle. Pour limiter ces questions, ajouter `--threshold 0.85` :
+>
+> ```bash
+> python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx --threshold 0.85
+> ```
+
 Ce principe se généralise à N versions : `Doc0 → Doc1_merged → … → Doc_Final`.
 
 ---

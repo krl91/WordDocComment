@@ -91,6 +91,11 @@ python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx
 - Commentaires propres à Doc1 (réancrés passe 2)
 - Commentaires propres à Doc2 (conservés)
 
+
+> **Observation** : si Doc2 diffère légèrement de Doc1 (typos, reformulations), les ancres de Doc0
+> peuvent atteindre ~88 % de confiance en passe 2 et déclencher une intervention. Ajouter
+> `--threshold 0.85` à la passe 2 réduit ces demandes.
+
 Pour N versions antérieures, répéter l'enchaînement :
 `Doc0 → Doc1_merged → … → DocN-1_merged → Doc_Final`
 

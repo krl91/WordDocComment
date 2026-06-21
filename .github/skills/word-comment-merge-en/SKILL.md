@@ -91,6 +91,11 @@ python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx
 - Comments unique to Doc1 (re-anchored in pass 2)
 - Comments unique to Doc2 (preserved)
 
+
+> **Observation**: if Doc2 text differs slightly from Doc1 (typos, rewording), Doc0 anchors
+> may reach ~88% confidence in pass 2 and trigger manual input. Adding `--threshold 0.85`
+> to pass 2 reduces these prompts.
+
 For N earlier versions, repeat the chain:
 `Doc0 → Doc1_merged → … → DocN-1_merged → Doc_Final`
 
