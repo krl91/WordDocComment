@@ -1,0 +1,7 @@
+[MASTER]
+# Allow pylint to inspect lxml C extensions at runtime
+extension-pkg-allow-list=lxml
+
+[MESSAGES CONTROL]
+# C0301 = line-too-long (disabled per project convention)
+disable=C0301

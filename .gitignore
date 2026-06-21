@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+.env
+
+# Fichiers générés par les scripts
+Doc_Final.docx
+*_comments.csv
+comments_export.csv
+comparaison*.csv
+comparison*.csv
+
+# Rapports et artefacts de développement
+pylint_report.txt
+*.log
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# VS Code (facultatif — décommenter pour ne pas versionner les settings locaux)
+# .vscode/

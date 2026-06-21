@@ -1,0 +1,3 @@
+# Dépendances Python — WordDocComment
+# Python 3.9+
+lxml>=4.9
