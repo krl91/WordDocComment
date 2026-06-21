@@ -211,6 +211,7 @@ Cliquez sur le sélecteur d'agent (icône ✦ ou menu `@`) pour en choisir un.
 |-------|--------|-------------|
 | **Fusion commentaires Word** | 🇫🇷 Français | Fusion + comparaison de commentaires |
 | **Word Comment Merge** | 🇬🇧 Anglais | Merge + multi-version comparison |
+| **Qualite document Word** | 🇫🇷 Français | Audit qualite `.docx`, copie corrigee legere, version structurelle optionnelle |
 
 **Exemples de messages d'activation :**
 
@@ -219,6 +220,7 @@ Fusionne les commentaires de Doc1.docx dans Doc2.docx
 Transfère les annotations Word entre deux fichiers
 Compare les commentaires de Doc1.docx, Doc2.docx et Doc_Final.docx
 Exporte les commentaires en CSV
+Verifie la qualite de mise en page de MonDocument.docx
 ```
 
 **Ce que l'agent fait automatiquement :**
@@ -227,7 +229,7 @@ Exporte les commentaires en CSV
 3. Intercepte chaque question interactive et la reformule dans le chat
 4. Affiche un résumé formaté à la fin
 
-### Skill (référence technique)
+### Skills (référence technique)
 
 Le skill `word-comment-merge` est chargé automatiquement par les agents
 lorsqu'ils ont besoin de détails techniques.  
@@ -238,6 +240,12 @@ Il peut aussi être invoqué manuellement dans le chat avec `/word-comment-merge
 /word-comment-merge fusion  → seuils et comportements de transfer_comments.py
 /word-comment-merge ooxml   → détails techniques du format OOXML
 ```
+
+Le skill `word-doc-quality` sert de référence à l'agent **Qualite document Word**.
+Il décrit les contrôles de lisibilité, d'homogénéité des tableaux et d'encadrés,
+avec une règle stricte : corriger seulement les écarts locaux qui ne nécessitent
+pas de refonte du document. Il peut aussi produire une seconde version structurelle
+qui remplace certains tableaux à cellule unique par un titre suivi du contenu.
 
 ---
 
@@ -254,10 +262,13 @@ WordDocComment/
 └── .github/
     ├── agents/
     │   ├── word-comment-merge.agent.md      # Agent Copilot (français)
-    │   └── word-comment-merge-en.agent.md   # Agent Copilot (anglais)
+    │   ├── word-comment-merge-en.agent.md   # Agent Copilot (anglais)
+    │   └── word-doc-quality.agent.md        # Agent Copilot qualité Word
     └── skills/
-        └── word-comment-merge/
-            ├── SKILL.md                     # Skill Copilot (référence)
-            └── references/
-                └── ooxml.md                 # Détails format OOXML
+        ├── word-comment-merge/
+        │   ├── SKILL.md                     # Skill Copilot (référence)
+        │   └── references/
+        │       └── ooxml.md                 # Détails format OOXML
+        └── word-doc-quality/
+            └── SKILL.md                     # Skill contrôle qualité Word
 ```

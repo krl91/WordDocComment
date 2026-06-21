@@ -21,6 +21,7 @@ Tu recherches uniquement les problemes a faible cout de correction :
 - tableaux dont l'en-tete, les bordures, les marges ou les couleurs ne suivent pas le motif dominant ;
 - tableaux imbriques qui rendent la lecture difficile ;
 - tableaux a cellule unique utilises comme encadres ;
+- version alternative sans encadres sous forme de tableaux, quand les tableaux a cellule unique doivent etre convertis en titre + contenu ;
 - encadres d'un meme type visuel ou semantique avec couleurs, bordures ou espacements incoherents ;
 - sauts de page manuels ou paragraphes vides qui creent une rupture evidente ;
 - incoherences locales de styles appliquees a des elements repetes.
@@ -30,7 +31,7 @@ Tu evites explicitement :
 - reecrire le contenu metier ;
 - changer l'ordre des sections ;
 - fusionner, diviser ou supprimer des sections entieres ;
-- convertir tous les tableaux vers un nouveau modele ;
+- convertir tous les tableaux vers un nouveau modele dans la version corrigee standard ;
 - imposer une charte graphique inventee ;
 - corriger automatiquement un cas ambigu.
 
@@ -50,6 +51,7 @@ Propose deux modes :
 
 - **Audit seul** : produire un rapport des problemes trouves, sans modifier le document.
 - **Audit + copie corrigee** : produire une copie `.docx` corrigee et un rapport.
+- **Audit + copie corrigee + version structurelle** : produire aussi une seconde version qui sort le contenu des tableaux a cellule unique et les remplace par un titre suivi du contenu.
 
 Si l'utilisateur ne precise pas le mode, proposer **Audit + copie corrigee**.
 
@@ -78,6 +80,7 @@ Demander en une seule fois :
     "question": "Souhaitez-vous seulement un audit ou aussi une copie corrigee ?",
     "options": [
       { "label": "Audit + copie corrigee", "recommended": true },
+      { "label": "Audit + copie corrigee + version structurelle" },
       { "label": "Audit seul" }
     ]
   },
@@ -93,6 +96,10 @@ Demander en une seule fois :
 ```
 
 Verifier que le fichier existe et que son extension est `.docx`.
+Si le mode structurel est choisi, prevoir deux fichiers de sortie :
+
+- `<nom>_qualite_corrigee.docx` pour les corrections legeres ;
+- `<nom>_structure_simplifiee.docx` pour la version sans encadres-tableaux.
 
 ## Etape 2 - Analyse technique
 
@@ -160,6 +167,36 @@ Corrections autorisees :
 - ne rien corriger si deux formats sont a egalite ou si le type est incertain ;
 - signaler les cas ambigus dans le rapport.
 
+### Version structurelle sans encadres-tableaux
+
+Cette etape est optionnelle et produit une seconde version du document. Elle sert quand
+le document utilise des tableaux a une seule cellule comme conteneurs, notamment dans
+des tableaux imbriques, et que l'objectif est d'eviter les tableaux dans les tableaux.
+
+Detecter les tableaux a une seule cellule qui peuvent etre convertis en bloc texte :
+
+- un seul `w:tr` et une seule `w:tc` ;
+- pas de cellules fusionnees complexes ;
+- pas d'image, graphique, equation, champ complexe ou commentaire ancre uniquement dans la structure du tableau ;
+- contenu principalement textuel ;
+- premier paragraphe contenant probablement un titre, souvent en gras, court, ou termine par `:`.
+
+Transformation autorisee dans la seconde version uniquement :
+
+1. Extraire le contenu de l'unique cellule.
+2. Identifier le titre probable :
+   - texte du premier run en gras au debut de la cellule ;
+   - sinon premier paragraphe court ;
+   - sinon ne pas convertir automatiquement.
+3. Inserer un paragraphe de titre avant le contenu extrait.
+4. Appliquer un style de titre local raisonnable : style de titre existant le plus proche, ou paragraphe en gras avec `keepNext` si aucun style fiable n'est identifiable.
+5. Inserer les paragraphes restants apres le titre.
+6. Supprimer le tableau a cellule unique remplace.
+
+Ne pas appliquer cette transformation dans la copie corrigee standard.
+Si un tableau a cellule unique contient un autre tableau complexe, le signaler au rapport
+au lieu de le convertir automatiquement.
+
 ## Etape 4 - Correction
 
 En mode "Audit + copie corrigee" :
@@ -171,6 +208,11 @@ En mode "Audit + copie corrigee" :
 5. Si possible, convertir le fichier corrige en PDF temporaire pour verifier qu'il n'est pas vide et que le rendu fonctionne.
 
 Si une correction echoue, revenir a l'etat precedent pour ce point et l'indiquer dans le rapport.
+
+En mode "Audit + copie corrigee + version structurelle", creer ensuite une seconde copie
+`<nom>_structure_simplifiee.docx` a partir de la copie corrigee, puis appliquer uniquement
+les transformations de tableaux a cellule unique decrites plus haut. Cette version est
+plus interventionniste : le rapport doit la distinguer clairement de la correction legere.
 
 ## Etape 5 - Rapport final
 
@@ -190,6 +232,7 @@ Le rapport doit contenir :
 | Titres        | X        | Y        | Z          |
 | Tableaux      | X        | Y        | Z          |
 | Encadres      | X        | Y        | Z          |
+| Version structurelle | X | Y | Z |
 
 ## Corrections appliquees
 
@@ -202,6 +245,7 @@ Le rapport doit contenir :
 ## Fichiers produits
 
 - Document corrige : ...
+- Version structurelle : ...
 - Rapport : ...
 ```
 
