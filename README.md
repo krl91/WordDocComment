@@ -115,6 +115,28 @@ L'ancrage tente d'abord une **correspondance exacte de la phrase** dans le même
 ==============================================================
 ```
 
+## Fusion depuis plusieurs versions antérieures (Doc0 + Doc1 + Doc2)
+
+Si les commentaires à récupérer se trouvent dans **deux versions source** (par exemple Doc0.docx *et* Doc1.docx), il suffit de **chaîner le script deux fois** :
+
+```bash
+# Étape 1 : fusionner Doc0 dans Doc1 → fichier intermédiaire
+python3 transfer_comments.py Doc0.docx Doc1.docx Doc1_merged.docx
+
+# Étape 2 : transférer tous les commentaires vers Doc2
+python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx
+```
+
+**Résultat de `Doc_Final.docx` :**
+- Texte de Doc2 (le plus récent)
+- Commentaires de Doc0 (réancrés passe 1 puis passe 2)
+- Commentaires propres à Doc1 (réancrés passe 2)
+- Commentaires propres à Doc2 conservés
+
+Ce principe se généralise à N versions : `Doc0 → Doc1_merged → … → Doc_Final`.
+
+---
+
 ## Export CSV des commentaires
 
 Le script `export_comments.py` extrait les commentaires d'un ou plusieurs `.docx` dans un fichier CSV (séparateur `;`).

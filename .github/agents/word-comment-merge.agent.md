@@ -32,8 +32,16 @@ Utiliser **un seul appel** à `vscode_askQuestions` pour demander les trois info
 ```json
 [
   {
+    "header": "versions_anterieures",
+    "question": "Avez-vous des versions encore plus anciennes (ex : Doc0.docx) dont il faut aussi récupérer les commentaires ?",
+    "options": [
+      { "label": "Non — un seul document source", "recommended": true },
+      { "label": "Oui — j'ai une ou plusieurs versions antérieures" }
+    ]
+  },
+  {
     "header": "source",
-    "question": "Document SOURCE : chemin du fichier contenant les commentaires à transférer (ex : Doc1.docx) ?"
+    "question": "Document SOURCE (version la plus récente des sources) : chemin du fichier contenant les commentaires à transférer (ex : Doc1.docx) ?"
   },
   {
     "header": "contenu",
@@ -52,6 +60,14 @@ Utiliser **un seul appel** à `vscode_askQuestions` pour demander les trois info
 
 Vérifier que les fichiers source et contenu existent. Si un fichier est introuvable,
 demander à l'utilisateur de corriger le chemin avant de continuer.
+
+Si l'utilisateur a indiqué des **versions antérieures** (Doc0, etc.), appliquer le
+**chaînage** avant l'étape 2 :
+1. Pour chaque version antérieure (de la plus ancienne à la plus récente) :
+   - Lancer `python3 transfer_comments.py <DocN-1> <DocN> <DocN_merged.docx>`
+   - Surveiller et intercepter les prompts (étape 3)
+   - Utiliser le fichier produit comme source de la passe suivante
+2. Utiliser le dernier fichier intermédiaire comme `<source>` pour l'étape 2 principale.
 
 ---
 

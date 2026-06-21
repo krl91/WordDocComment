@@ -72,6 +72,30 @@ python3 transfer_comments.py <source.docx> <content.docx> [output.docx] [--thres
 
 ---
 
+## Workflow 1b — Merge from multiple earlier versions (Doc0 + Doc1 + Doc2)
+
+When comments are spread across **two source versions** (Doc0 and Doc1),
+chain the script twice — no code changes required:
+
+```bash
+# Pass 1: Doc0 → Doc1 (Doc1 text + Doc0+Doc1 comments)
+python3 transfer_comments.py Doc0.docx Doc1.docx Doc1_merged.docx
+
+# Pass 2: Doc1_merged → Doc2 (Doc2 text + all comments)
+python3 transfer_comments.py Doc1_merged.docx Doc2.docx Doc_Final.docx
+```
+
+**Contents of `Doc_Final.docx`:**
+- Text from Doc2 (most recent)
+- Comments from Doc0 (re-anchored in pass 1, then pass 2)
+- Comments unique to Doc1 (re-anchored in pass 2)
+- Comments unique to Doc2 (preserved)
+
+For N earlier versions, repeat the chain:
+`Doc0 → Doc1_merged → … → DocN-1_merged → Doc_Final`
+
+---
+
 ## Workflow 2 — CSV export
 
 ### Command
