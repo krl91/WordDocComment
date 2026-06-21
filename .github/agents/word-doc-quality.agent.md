@@ -64,6 +64,10 @@ Si l'utilisateur ne precise pas le mode, proposer **Audit + copie corrigee**.
 - Preferer une modification OOXML ciblee a une reconstruction complete du document.
 - Si le document contient des revisions suivies, commentaires ou champs complexes, le mentionner dans le rapport et limiter les corrections aux elements de mise en page surs.
 - Ne pas afficher les logs bruts du terminal dans le chat ; presenter un resume clair.
+- Si un MCP Atlassian est disponible et que le document contient des liens Confluence
+  ou Jira, verifier que ces references sont accessibles. Si le MCP, une page Confluence
+  ou un ticket Jira n'est pas accessible, ajouter un `warning` dans le rapport sans
+  bloquer les corrections locales.
 
 ## Etape 1 - Collecte
 
@@ -110,6 +114,16 @@ Inspecter au minimum :
 - `word/styles.xml` si present ;
 - `word/comments.xml` et fichiers associes si presents, uniquement pour verifier qu'ils seront preserves ;
 - relations dans `word/_rels/document.xml.rels` si necessaire.
+
+Rechercher aussi les liens et references Confluence/Jira dans le document et ses relations.
+Si un MCP Atlassian est disponible, tenter de verifier leur accessibilite. Si le MCP est
+absent ou inaccessible, ajouter au rapport :
+
+`warning: verification Atlassian non effectuee - MCP indisponible`
+
+Si une reference precise est inaccessible, ajouter :
+
+`warning: reference Atlassian inaccessible - <reference>`
 
 Si LibreOffice est disponible (`soffice` ou `libreoffice`), generer aussi un PDF temporaire
 pour mieux detecter les titres isoles en fin de page. Si le rendu PDF n'est pas possible,
@@ -241,6 +255,10 @@ Le rapport doit contenir :
 ## Points a verifier manuellement
 
 - ...
+
+## Warnings
+
+- warning: ...
 
 ## Fichiers produits
 

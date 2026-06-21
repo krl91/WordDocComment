@@ -212,6 +212,7 @@ Cliquez sur le sélecteur d'agent (icône ✦ ou menu `@`) pour en choisir un.
 | **Fusion commentaires Word** | 🇫🇷 Français | Fusion + comparaison de commentaires |
 | **Word Comment Merge** | 🇬🇧 Anglais | Merge + multi-version comparison |
 | **Qualite document Word** | 🇫🇷 Français | Audit qualite `.docx`, copie corrigee legere, version structurelle optionnelle |
+| **Relecture document Word** | 🇫🇷 Français | Relecture chapitre par chapitre + document corrige + bilan de gravite |
 
 **Exemples de messages d'activation :**
 
@@ -221,6 +222,7 @@ Transfère les annotations Word entre deux fichiers
 Compare les commentaires de Doc1.docx, Doc2.docx et Doc_Final.docx
 Exporte les commentaires en CSV
 Verifie la qualite de mise en page de MonDocument.docx
+Relis MonDocument.docx chapitre par chapitre et cree une version corrigee
 ```
 
 **Ce que l'agent fait automatiquement :**
@@ -246,6 +248,14 @@ Il décrit les contrôles de lisibilité, d'homogénéité des tableaux et d'enc
 avec une règle stricte : corriger seulement les écarts locaux qui ne nécessitent
 pas de refonte du document. Il peut aussi produire une seconde version structurelle
 qui remplace certains tableaux à cellule unique par un titre suivi du contenu.
+Si un MCP Atlassian est disponible, il signale aussi les références Confluence/Jira
+inaccessibles sous forme de `warning` dans le rapport.
+
+Le skill `word-doc-review` sert de référence à l'agent **Relecture document Word**.
+Il décrit la relecture éditoriale chapitre par chapitre, les niveaux de correction,
+les règles de validation et le tableau bilan par gravité. Si un MCP Atlassian est
+disponible, il vérifie les références Confluence/Jira citées ; sinon, ou si une
+référence est inaccessible, le bilan contient un `warning`.
 
 ---
 
@@ -263,12 +273,15 @@ WordDocComment/
     ├── agents/
     │   ├── word-comment-merge.agent.md      # Agent Copilot (français)
     │   ├── word-comment-merge-en.agent.md   # Agent Copilot (anglais)
-    │   └── word-doc-quality.agent.md        # Agent Copilot qualité Word
+    │   ├── word-doc-quality.agent.md        # Agent Copilot qualité Word
+    │   └── word-doc-review.agent.md         # Agent Copilot relecture Word
     └── skills/
         ├── word-comment-merge/
         │   ├── SKILL.md                     # Skill Copilot (référence)
         │   └── references/
         │       └── ooxml.md                 # Détails format OOXML
-        └── word-doc-quality/
-            └── SKILL.md                     # Skill contrôle qualité Word
+        ├── word-doc-quality/
+        │   └── SKILL.md                     # Skill contrôle qualité Word
+        └── word-doc-review/
+            └── SKILL.md                     # Skill relecture Word
 ```

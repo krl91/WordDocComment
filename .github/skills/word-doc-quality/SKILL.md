@@ -40,6 +40,33 @@ Sinon, produire une recommandation dans le rapport.
 
 ---
 
+## Verification Atlassian optionnelle
+
+Si un MCP Atlassian est disponible et que le document contient des references Confluence
+ou Jira, verifier uniquement leur accessibilite.
+
+References a detecter :
+
+- URL Confluence ;
+- URL Jira ;
+- cle Jira de type `ABC-123` ;
+- lien present dans `word/_rels/document.xml.rels`.
+
+Warnings obligatoires :
+
+```text
+warning: verification Atlassian non effectuee - MCP indisponible
+```
+
+```text
+warning: reference Atlassian inaccessible - <reference>
+```
+
+Ces warnings doivent etre inscrits dans le rapport qualite. Ils ne doivent pas bloquer
+les corrections locales de mise en page.
+
+---
+
 ## Controle 1 - Titres et lisibilite
 
 ### Points a detecter
@@ -229,6 +256,10 @@ de toutes les imperfections du document.
 ## Points a verifier manuellement
 
 - Description courte et raison du doute.
+
+## Warnings
+
+- warning: ...
 
 ## Fichiers produits
 
